@@ -82,8 +82,8 @@ nav.top a:not(.brand):hover { color: var(--carmine); }
 }
 .portrait {
   display: block;
-  width: 210px;
-  height: 210px;
+  width: 280px;
+  height: 280px;
   object-fit: cover;
   border-radius: 12px;
   border: 1px solid var(--rule);
@@ -132,6 +132,12 @@ nav.top a:not(.brand):hover { color: var(--carmine); }
   stroke: var(--carmine); stroke-width: 3.2;
   stroke-linecap: round; stroke-linejoin: round; fill: none;
 }
+.fig .walker {
+  stroke: var(--ink); stroke-width: 8;
+  stroke-linecap: round; stroke-linejoin: round; fill: none;
+  stroke-dasharray: 0.1 660.9;
+  opacity: 0;
+}
 .fig .node { fill: #fff; stroke: var(--ink); stroke-width: 1.6; }
 .fig .term { fill: var(--marker); }
 .fig text {
@@ -140,13 +146,20 @@ nav.top a:not(.brand):hover { color: var(--carmine); }
 }
 @media (prefers-reduced-motion: no-preference) {
   .figblock[open] .fig .path {
-    stroke-dasharray: 360;
-    stroke-dashoffset: 360;
-    animation: draw 1.2s cubic-bezier(.6,0,.3,1) .1s forwards;
+    stroke-dasharray: 661;
+    stroke-dashoffset: 661;
+    animation: draw 2.4s linear .1s forwards;
   }
+  .figblock[open] .fig .walker { animation: travel 2.4s linear .1s forwards; }
+  .figblock[open] .fig .mid { animation: visited .3s ease var(--d) forwards; }
   .hero > div, .portrait { animation: rise .6s ease-out both; }
   .portrait { animation-delay: .08s; }
 }
+@keyframes travel {
+  from { stroke-dashoffset: 0; opacity: 1; }
+  to   { stroke-dashoffset: -660.9; opacity: 1; }
+}
+@keyframes visited { to { fill: var(--marker); } }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
@@ -341,30 +354,36 @@ footer .upd { margin-left: auto; }
           <summary><span class="chev">▸</span>about this paper</summary>
           <div class="figbody">
             <figure class="fig">
-              <svg viewBox="0 0 320 236" role="img" aria-label="A subcubic graph with vertices s and t; the s–t path is highlighted.">
-                <!-- background edges -->
+              <svg viewBox="0 0 320 236" role="img" aria-label="A subcubic graph; an animated s–t walk visits every vertex from s to t.">
+                <!-- edges -->
+                <line class="edge" x1="24" y1="128" x2="84"  y2="56"/>
                 <line class="edge" x1="24" y1="128" x2="92"  y2="196"/>
                 <line class="edge" x1="24" y1="128" x2="150" y2="120"/>
                 <line class="edge" x1="84" y1="56"  x2="150" y2="120"/>
+                <line class="edge" x1="84" y1="56"  x2="210" y2="52"/>
                 <line class="edge" x1="92" y1="196" x2="150" y2="120"/>
                 <line class="edge" x1="92" y1="196" x2="216" y2="188"/>
                 <line class="edge" x1="210" y1="52" x2="216" y2="188"/>
+                <line class="edge" x1="210" y1="52" x2="272" y2="124"/>
                 <line class="edge" x1="216" y1="188" x2="272" y2="124"/>
-                <!-- highlighted s–t path -->
-                <polyline class="path" points="24,128 84,56 210,52 272,124 296,128"/>
-                <!-- vertices -->
+                <line class="edge" x1="272" y1="124" x2="296" y2="128"/>
+                <!-- s–t walk visiting every vertex -->
+                <polyline class="path" points="24,128 84,56 150,120 92,196 216,188 210,52 272,124 296,128"/>
+                <!-- vertices (--d = arrival time of the walk) -->
                 <circle class="node term" cx="24"  cy="128" r="7"/>
-                <circle class="node" cx="84"  cy="56"  r="6"/>
-                <circle class="node" cx="92"  cy="196" r="6"/>
-                <circle class="node" cx="150" cy="120" r="6"/>
-                <circle class="node" cx="210" cy="52"  r="6"/>
-                <circle class="node" cx="216" cy="188" r="6"/>
-                <circle class="node" cx="272" cy="124" r="6"/>
+                <circle class="node mid" style="--d:.44s"  cx="84"  cy="56"  r="6"/>
+                <circle class="node mid" style="--d:1.12s" cx="92"  cy="196" r="6"/>
+                <circle class="node mid" style="--d:.77s"  cx="150" cy="120" r="6"/>
+                <circle class="node mid" style="--d:2.07s" cx="210" cy="52"  r="6"/>
+                <circle class="node mid" style="--d:1.57s" cx="216" cy="188" r="6"/>
+                <circle class="node mid" style="--d:2.41s" cx="272" cy="124" r="6"/>
                 <circle class="node term" cx="296" cy="128" r="7"/>
+                <!-- traveler -->
+                <polyline class="walker" points="24,128 84,56 150,120 92,196 216,188 210,52 272,124 296,128"/>
                 <text x="8"   y="112">s</text>
                 <text x="306" y="118">t</text>
               </svg>
-              <figcaption>Fig.&nbsp;1. A subcubic graph; an <em>s–t</em> path highlighted.</figcaption>
+              <figcaption>Fig.&nbsp;1. A subcubic graph; an <em>s–t</em> walk visiting every vertex.</figcaption>
             </figure>
             <p>The <em>s–t</em> path TSP asks for a cheapest route that starts at <em>s</em>, ends at <em>t</em>, and visits every vertex. In the graphic case, costs are shortest-path distances in an unweighted graph. This paper establishes a <span class="hl">5/4&nbsp;bound</span> for the problem when the graph is subcubic — every vertex has degree at most&nbsp;3, as in the figure above.</p>
           </div>
