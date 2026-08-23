@@ -1,4 +1,471 @@
----
-layout: home
-author_profile: true
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Junho Hwang</title>
+<meta name="description" content="Junho Hwang — data engineer at Presto Labs; approximation algorithms and combinatorial optimization. Author of a 5/4 bound for graphic s-t path TSP on subcubic graphs (WAOA 2026). ICPC World Finalist.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolyline points='4,24 14,8 26,20' fill='none' stroke='%23A3242E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='4' cy='24' r='3.4' fill='%23FFE566' stroke='%23161F29' stroke-width='1.6'/%3E%3Ccircle cx='14' cy='8' r='3.4' fill='%23fff' stroke='%23161F29' stroke-width='1.6'/%3E%3Ccircle cx='26' cy='20' r='3.4' fill='%23FFE566' stroke='%23161F29' stroke-width='1.6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F7F8F5;
+  --ink: #161F29;
+  --graphite: #5A6472;
+  --carmine: #A3242E;
+  --marker: #FFE566;
+  --rule: #E1E3DC;
+  --serif: "STIX Two Text", Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { color-scheme: light; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--marker); color: var(--ink); }
+
+a { color: var(--carmine); text-decoration: none; border-bottom: 1px solid rgba(163,36,46,.35); transition: border-color .15s ease, background-color .15s ease; }
+a:hover { border-bottom-color: var(--carmine); }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--carmine);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.skip {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--ink); color: var(--paper);
+  padding: .5rem .9rem; font-family: var(--mono); font-size: .8rem; z-index: 10;
+}
+.skip:focus { left: .75rem; top: .75rem; }
+
+main { max-width: 1000px; margin: 0 auto; padding: 0 1.4rem 2rem; }
+
+/* ---------- top nav ---------- */
+nav.top {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem 1.4rem;
+  padding: 1.4rem 0 0;
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .02em;
+}
+nav.top .brand {
+  font-weight: 600; color: var(--ink); border-bottom: none; margin-right: auto;
+}
+nav.top a:not(.brand) { color: var(--graphite); border-bottom: none; }
+nav.top a:not(.brand):hover { color: var(--carmine); }
+
+/* ---------- hero ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 1.5rem 3rem;
+  align-items: center;
+  padding: 4rem 0 3.2rem;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 6vw, 3.7rem);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+}
+.hero .role {
+  margin-top: 1rem;
+  font-size: 1.02rem;
+  color: var(--graphite);
+  max-width: 34rem;
+}
+.hero .role a { font-weight: 500; }
+.hero .contacts {
+  margin-top: 1.1rem;
+  font-family: var(--mono); font-size: .82rem;
+  display: flex; flex-wrap: wrap; gap: .4rem 1.3rem;
+}
+.hero .contacts a { color: var(--ink); border-bottom-color: rgba(22,31,41,.25); }
+.hero .contacts a:hover { color: var(--carmine); border-bottom-color: var(--carmine); }
+.cvs { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: .7rem; }
+.btn {
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .04em;
+  color: var(--ink); border: 1.5px solid var(--ink); border-radius: 5px;
+  padding: .5rem .85rem; background: transparent;
+}
+.btn:hover { background: var(--ink); color: var(--paper); border-bottom-color: var(--ink); }
+.btn .ext { color: var(--graphite); }
+.btn:hover .ext { color: var(--paper); }
+
+/* hero figure */
+.fig { justify-self: center; width: 100%; max-width: 330px; }
+.fig svg { width: 100%; height: auto; display: block; }
+.fig figcaption {
+  margin-top: .6rem;
+  font-family: var(--serif); font-style: italic;
+  font-size: .84rem; color: var(--graphite); line-height: 1.45;
+}
+.fig .edge { stroke: var(--ink); stroke-width: 1.4; opacity: .5; }
+.fig .path {
+  stroke: var(--carmine); stroke-width: 3.2;
+  stroke-linecap: round; stroke-linejoin: round; fill: none;
+}
+.fig .node { fill: #fff; stroke: var(--ink); stroke-width: 1.6; }
+.fig .term { fill: var(--marker); }
+.fig text {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15px; fill: var(--ink);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fig .path {
+    stroke-dasharray: 360;
+    stroke-dashoffset: 360;
+    animation: draw 1.3s cubic-bezier(.6,0,.3,1) .35s forwards;
+  }
+  .hero > div, .fig { animation: rise .6s ease-out both; }
+  .fig { animation-delay: .12s; }
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.hl {
+  background: linear-gradient(transparent 52%, var(--marker) 52%, var(--marker) 94%, transparent 94%);
+  padding: 0 .1em;
+}
+
+/* ---------- sections with margin labels ---------- */
+section {
+  border-top: 1px solid var(--rule);
+  padding: 2.4rem 0 2.6rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .9rem 3rem;
+}
+.mlabel {
+  font-family: var(--mono); font-weight: 600;
+  font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--graphite);
+}
+.mlabel::before {
+  content: ""; display: inline-block;
+  width: 11px; height: 2.5px; background: var(--carmine);
+  margin-right: .6em; vertical-align: middle;
+}
+.sbody { max-width: 40rem; min-width: 0; }
+@media (min-width: 900px) {
+  section { grid-template-columns: 170px minmax(0, 1fr); }
+  .mlabel { position: sticky; top: 1.6rem; align-self: start; }
+}
+
+/* about */
+#about p { font-size: 1.02rem; }
+#about p + p { margin-top: .8rem; }
+
+/* news */
+.news { display: grid; grid-template-columns: 5.4rem 1fr; gap: .55rem 1.1rem; font-size: .95rem; }
+.news dt { font-family: var(--mono); font-size: .78rem; color: var(--graphite); padding-top: .18em; }
+.news dd { min-width: 0; }
+
+/* publication */
+.pub { display: grid; grid-template-columns: 1.8rem 1fr; gap: 1rem; }
+.pub .num { font-family: var(--mono); font-size: .82rem; color: var(--graphite); padding-top: .3em; }
+.pub h3 { font-family: var(--serif); font-weight: 600; font-size: 1.22rem; line-height: 1.35; }
+.pub .authors { margin-top: .3rem; font-size: .93rem; }
+.pub .venue { margin-top: .15rem; font-size: .93rem; color: var(--graphite); font-style: italic; font-family: var(--serif); }
+.pub .plinks { margin-top: .6rem; display: flex; gap: .6rem; flex-wrap: wrap; }
+.tag {
+  font-family: var(--mono); font-size: .74rem;
+  border: 1px solid var(--rule); border-radius: 4px;
+  background: #fff; color: var(--ink);
+  padding: .22rem .55rem;
+}
+.tag:hover { border-color: var(--carmine); color: var(--carmine); }
+
+/* experience */
+.job + .job { margin-top: 1.9rem; }
+.job-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem 1rem; }
+.job-head h3 { font-size: 1.02rem; font-weight: 600; }
+.job-head .dates { font-family: var(--mono); font-size: .76rem; color: var(--graphite); margin-left: auto; white-space: nowrap; }
+.job .loc { font-size: .88rem; color: var(--graphite); margin-top: .1rem; }
+.job ul { list-style: none; margin-top: .55rem; }
+.job li { position: relative; padding-left: 1.35rem; font-size: .95rem; margin-top: .45rem; }
+.job li::before { content: "—"; position: absolute; left: 0; color: var(--carmine); }
+
+/* contests */
+.crow {
+  display: grid; grid-template-columns: 6.2rem 1fr auto;
+  gap: 1rem; align-items: baseline;
+  padding: .42rem 0; font-size: .95rem;
+}
+.crow .rank { font-family: var(--mono); font-weight: 600; font-size: .84rem; color: var(--carmine); white-space: nowrap; }
+.crow .yr { font-family: var(--mono); font-size: .78rem; color: var(--graphite); white-space: nowrap; }
+.crow .sub { display: block; font-size: .85rem; color: var(--graphite); }
+
+/* education / activities */
+.edu + .edu { margin-top: 1.5rem; }
+.edu ul { list-style: none; margin-top: .4rem; }
+.edu li { position: relative; padding-left: 1.35rem; font-size: .93rem; margin-top: .3rem; color: var(--ink); }
+.edu li::before { content: "—"; position: absolute; left: 0; color: var(--carmine); }
+
+/* skills */
+.skills { display: grid; grid-template-columns: 9.5rem 1fr; gap: .6rem 1.2rem; font-size: .93rem; }
+.skills dt { font-family: var(--mono); font-size: .76rem; color: var(--graphite); padding-top: .2em; }
+.skills dd { min-width: 0; }
+@media (max-width: 560px) {
+  .news { grid-template-columns: 4.6rem 1fr; }
+  .skills { grid-template-columns: 1fr; gap: .1rem; }
+  .skills dd { margin-bottom: .6rem; }
+  .crow { grid-template-columns: 4.6rem 1fr; }
+  .crow .yr { grid-column: 2; }
+}
+
+/* footer */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 1.6rem 0 1rem;
+  font-family: var(--mono); font-size: .75rem; color: var(--graphite);
+  display: flex; flex-wrap: wrap; gap: .4rem 1.4rem;
+}
+footer a { color: var(--graphite); border-bottom-color: var(--rule); }
+footer a:hover { color: var(--carmine); }
+footer .upd { margin-left: auto; }
+
+@media (max-width: 799px) {
+  .hero { grid-template-columns: 1fr; padding-top: 3rem; }
+  .fig { max-width: 300px; justify-self: start; }
+}
+</style>
+</head>
+<body id="top">
+<a class="skip" href="#about">Skip to content</a>
+<main>
+
+<nav class="top" aria-label="Sections">
+  <a class="brand" href="#top">junho hwang</a>
+  <a href="#about">about</a>
+  <a href="#news">news</a>
+  <a href="#publication">paper</a>
+  <a href="#experience">work</a>
+  <a href="#contests">contests</a>
+  <a href="#education">education</a>
+  <a href="#skills">skills</a>
+</nav>
+
+<header class="hero">
+  <div>
+    <h1>Junho Hwang</h1>
+    <p class="role">Data engineer at <a href="https://www.prestolabs.io" rel="noopener">Presto Labs</a>, Seoul — vendor data &amp; data platform for systematic trading. Research in approximation algorithms and combinatorial optimization.</p>
+    <p class="contacts">
+      <a href="mailto:junhohwang98@gmail.com">junhohwang98@gmail.com</a>
+      <a href="https://github.com/junodeveloper" rel="noopener">github/junodeveloper</a>
+      <a href="https://infossm.github.io/authors/junodeveloper" rel="noopener">blog</a>
+    </p>
+    <p class="cvs">
+      <a class="btn" href="Junho_Hwang_CV.pdf">CV — Industry <span class="ext">↓</span></a>
+      <a class="btn" href="Junho_Hwang_CV_Academic.pdf">CV — Academic <span class="ext">↓</span></a>
+    </p>
+  </div>
+  <figure class="fig">
+    <svg viewBox="0 0 320 236" role="img" aria-label="A subcubic graph with vertices s and t; the s–t path is highlighted.">
+      <!-- background edges -->
+      <line class="edge" x1="24" y1="128" x2="92"  y2="196"/>
+      <line class="edge" x1="24" y1="128" x2="150" y2="120"/>
+      <line class="edge" x1="84" y1="56"  x2="150" y2="120"/>
+      <line class="edge" x1="92" y1="196" x2="150" y2="120"/>
+      <line class="edge" x1="92" y1="196" x2="216" y2="188"/>
+      <line class="edge" x1="210" y1="52" x2="216" y2="188"/>
+      <line class="edge" x1="216" y1="188" x2="272" y2="124"/>
+      <!-- highlighted s–t path -->
+      <polyline class="path" points="24,128 84,56 210,52 272,124 296,128"/>
+      <!-- vertices -->
+      <circle class="node term" cx="24"  cy="128" r="7"/>
+      <circle class="node" cx="84"  cy="56"  r="6"/>
+      <circle class="node" cx="92"  cy="196" r="6"/>
+      <circle class="node" cx="150" cy="120" r="6"/>
+      <circle class="node" cx="210" cy="52"  r="6"/>
+      <circle class="node" cx="216" cy="188" r="6"/>
+      <circle class="node" cx="272" cy="124" r="6"/>
+      <circle class="node term" cx="296" cy="128" r="7"/>
+      <text x="8"   y="112">s</text>
+      <text x="306" y="118">t</text>
+    </svg>
+    <figcaption>Fig.&nbsp;1. A subcubic graph; an <em>s–t</em> path highlighted. (WAOA&nbsp;2026)</figcaption>
+  </figure>
+</header>
+
+<section id="about">
+  <h2 class="mlabel">About</h2>
+  <div class="sbody">
+    <p>I build point-in-time vendor data infrastructure at Presto Labs — pipelines for systematic equity and futures trading where correctness has to be provable and history must never quietly change. Before that: Yonsei CS, and engineering at NEXON, Samsung Research, and Kakao.</p>
+    <p>On the research side, I work on approximation algorithms and combinatorial optimization. My recent sole-author paper gives a <span class="hl">5/4&nbsp;bound</span> for graphic <em>s–t</em> path TSP on subcubic graphs, to appear at WAOA&nbsp;2026. I also spent many years in competitive programming, including a run to the ICPC World Finals.</p>
+  </div>
+</section>
+
+<section id="news">
+  <h2 class="mlabel">News</h2>
+  <div class="sbody">
+    <dl class="news">
+      <dt>2026.08</dt><dd>Preprint of my WAOA 2026 paper is up on <a href="https://arxiv.org/abs/2608.11038" rel="noopener">arXiv</a>; the paper will appear at the 24th Workshop on Approximation and Online Algorithms in L&rsquo;Aquila, Italy.</dd>
+      <dt>2025.11</dt><dd>Joined <a href="https://www.prestolabs.io" rel="noopener">Presto Labs</a> as a data engineer on the vendor data / data platform team.</dd>
+      <dt>2024.02</dt><dd>Graduated from Yonsei University with a B.S. in Computer Science.</dd>
+    </dl>
+  </div>
+</section>
+
+<section id="publication">
+  <h2 class="mlabel">Publication</h2>
+  <div class="sbody">
+    <div class="pub">
+      <span class="num">[1]</span>
+      <div>
+        <h3>A 5/4 Bound for Graphic s-t Path TSP on Subcubic Graphs</h3>
+        <p class="authors">Junho Hwang <span style="color:var(--graphite)">(sole author)</span></p>
+        <p class="venue">Proceedings of the 24th International Workshop on Approximation and Online Algorithms (WAOA 2026), L&rsquo;Aquila, Italy. To appear.</p>
+        <p class="plinks">
+          <a class="tag" href="https://arxiv.org/abs/2608.11038" rel="noopener">arXiv:2608.11038</a>
+          <a class="tag" href="https://arxiv.org/pdf/2608.11038" rel="noopener">PDF</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <h2 class="mlabel">Experience</h2>
+  <div class="sbody">
+
+    <article class="job">
+      <div class="job-head">
+        <h3>Presto Labs — Data Engineer</h3>
+        <span class="dates">Nov 2025 — present</span>
+      </div>
+      <p class="loc">Seoul, Korea · Vendor data / data platform for systematic trading</p>
+      <ul>
+        <li>Build and operate point-in-time vendor data pipelines feeding systematic equity and futures trading across 8 markets — from SFTP/REST ingestion through a Parquet&nbsp;+&nbsp;DuckDB lake to reader APIs, Airflow DAGs, and the C++ trading system&rsquo;s config layer.</li>
+        <li>Primary author of the Capital IQ Estimates point-in-time dataset; led the Compustat fundamentals lake migration, root-causing 6 silent data-loss vectors in the legacy pipeline and proving cell-exact parity across 28 delivery windows.</li>
+        <li>Core contributor to the vendor data-quality platform: 54 validation targets across 8 regions, 14 rule modules, and a point-in-time bias detector that catches retroactive mutation of history — the primary threat to backtest validity.</li>
+      </ul>
+    </article>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>Ngine Studios @ NEXON — Software Engineer</h3>
+        <span class="dates">Oct 2020 — Feb 2023</span>
+      </div>
+      <p class="loc">Gyeonggi-do, Korea · Alternative military service</p>
+      <ul>
+        <li>Developed an ML model serving system, RESTful API servers, and cryptocurrency trading strategies using blockchain smart contracts.</li>
+      </ul>
+    </article>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>Samsung Research — Freelance Researcher</h3>
+        <span class="dates">Jul 2020 — Oct 2020</span>
+      </div>
+      <p class="loc">Remote</p>
+      <ul>
+        <li>Developed a GAN-based image outpainting algorithm that extends the boundaries of segmentation images.</li>
+      </ul>
+    </article>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>Kakao Corp. — Intern</h3>
+        <span class="dates">Jan 2019 — Feb 2019</span>
+      </div>
+      <p class="loc">Jeju, Korea</p>
+      <ul>
+        <li>Improved the image-splitting algorithm used for thumbnail extraction on daum.net.</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<section id="contests">
+  <h2 class="mlabel">Contests</h2>
+  <div class="sbody">
+    <div class="crow"><span class="rank">34/117</span><span>ICPC World Finals, Moscow <span class="sub">2020-season finals; received Honors</span></span><span class="yr">2021</span></div>
+    <div class="crow"><span class="rank">2nd</span><span>ICPC Asia Seoul Regional <span class="sub">Minister of Science and ICT Award; advanced to World Finals</span></span><span class="yr">2019</span></div>
+    <div class="crow"><span class="rank">Bronze</span><span>ICPC Asia Danang Regional</span><span class="yr">2019</span></div>
+    <div class="crow"><span class="rank">10th</span><span>ICPC Asia Nakhon-Pathom Regional</span><span class="yr">2018</span></div>
+    <div class="crow"><span class="rank">R3</span><span>Google Code Jam, Round 3</span><span class="yr">2020 · 21</span></div>
+    <div class="crow"><span class="rank">5th</span><span>Samsung Collegiate Programming Contest (SCPC)</span><span class="yr">2018 · 19</span></div>
+    <div class="crow"><span class="rank">5th</span><span>Kakao Code Festival</span><span class="yr">2018</span></div>
+    <div class="crow"><span class="rank">1st</span><span>Yonsei University Programming Contest</span><span class="yr">2018 · 19</span></div>
+    <div class="crow"><span class="rank">7th</span><span>UCPC</span><span class="yr">2019</span></div>
+    <div class="crow"><span class="rank">Bronze</span><span>Korean Olympiad in Informatics</span><span class="yr">2016</span></div>
+  </div>
+</section>
+
+<section id="education">
+  <h2 class="mlabel">Education</h2>
+  <div class="sbody">
+    <article class="edu">
+      <div class="job-head">
+        <h3>Yonsei University — B.S. in Computer Science</h3>
+        <span class="dates">Mar 2017 — Feb 2024</span>
+      </div>
+      <ul>
+        <li>GPA 4.11 / 4.3 (major 4.23 / 4.3)</li>
+        <li>Semester High Honors ×4 (2018–2023) · National Science and Technology Scholarship (2019)</li>
+      </ul>
+    </article>
+    <article class="edu">
+      <div class="job-head">
+        <h3>Incheon Science High School</h3>
+        <span class="dates">Mar 2014 — Feb 2017</span>
+      </div>
+      <ul>
+        <li>Honorable Mention, Samsung Humantech Paper Award (2016)</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section id="activities">
+  <h2 class="mlabel">Activities</h2>
+  <div class="sbody">
+    <article class="edu">
+      <div class="job-head">
+        <h3>Samsung Software Membership</h3>
+        <span class="dates">Sep 2018 — Sep 2024</span>
+      </div>
+      <ul>
+        <li>Funded to compete in worldwide programming contests, including the ICPC World Finals.</li>
+        <li>Wrote posts on algorithms and problem solving for the <a href="https://infossm.github.io/authors/junodeveloper" rel="noopener">member blog</a>.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section id="skills">
+  <h2 class="mlabel">Skills</h2>
+  <div class="sbody">
+    <dl class="skills">
+      <dt>languages</dt><dd>C/C++ · Python · SQL · Java · TypeScript · Go · Rust · Solidity</dd>
+      <dt>data &amp; infra</dt><dd>DuckDB · Parquet · pandas · NumPy · Airflow · FastAPI · Bazel</dd>
+      <dt>ml &amp; web</dt><dd>PyTorch · TensorFlow · Node.js · React.js</dd>
+      <dt>spoken</dt><dd>Korean (native) · English</dd>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Junho Hwang</span>
+  <a href="mailto:junhohwang98@gmail.com">email</a>
+  <a href="https://github.com/junodeveloper" rel="noopener">github</a>
+  <a href="https://infossm.github.io/authors/junodeveloper" rel="noopener">blog</a>
+  <span class="upd">last updated 2026.08</span>
+</footer>
+
+</main>
+</body>
+</html>
