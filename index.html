@@ -206,7 +206,15 @@ nav.top a:not(.brand):hover { color: var(--carmine); }
   font-family: var(--serif); font-style: italic;
   font-size: 15px; fill: var(--ink);
 }
+.fig .base { stroke: var(--ink); stroke-width: 1.4; opacity: .5; }
+.fig .arrow { fill: var(--ink); opacity: .5; }
+.fig .job { fill: #fff; stroke: var(--ink); stroke-width: 1.4; }
+.fig .peak { stroke: var(--carmine); stroke-width: 1.6; stroke-dasharray: 5 4; }
+.fig text.note { font-size: 13px; fill: var(--graphite); }
+.fig text.peak-label { font-size: 13px; fill: var(--carmine); }
 @media (prefers-reduced-motion: no-preference) {
+  .figblock[open] .fig .job { animation: drop .4s ease-out var(--d) both; }
+  .figblock[open] .fig .peak-mark { animation: fade .35s ease .95s both; }
   .figblock[open] .fig .path {
     stroke-dasharray: 661;
     stroke-dashoffset: 661;
@@ -223,6 +231,8 @@ nav.top a:not(.brand):hover { color: var(--carmine); }
 }
 @keyframes visited { to { fill: var(--marker); } }
 @keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes drop { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 .hl {
@@ -265,6 +275,7 @@ section {
 
 /* publication */
 .pub { display: grid; grid-template-columns: 1.8rem 1fr; gap: 1rem; }
+.pub + .pub { margin-top: 1.9rem; }
 .pub .num { font-family: var(--mono); font-size: .82rem; color: var(--graphite); padding-top: .3em; }
 .pub h3 { font-family: var(--serif); font-weight: 600; font-size: 1.22rem; line-height: 1.35; }
 .pub .authors { margin-top: .3rem; font-size: .93rem; }
@@ -356,7 +367,7 @@ footer .upd { margin-left: auto; }
   <a class="brand" href="#top">junho hwang</a>
   <a href="#about">about</a>
   <a href="#news">news</a>
-  <a href="#publication">paper</a>
+  <a href="#publication">papers</a>
   <a href="#experience">work</a>
   <a href="#contests">contests</a>
   <a href="#education">education</a>
@@ -392,6 +403,7 @@ footer .upd { margin-left: auto; }
   <h2 class="mlabel">News</h2>
   <div class="sbody">
     <dl class="news">
+      <dt>2026.09</dt><dd>New preprint on <a href="https://arxiv.org/abs/2609.33493" rel="noopener">arXiv</a>: <em>An EPTAS for Offline Temporary Tasks Assignment on Few Machines</em>.</dd>
       <dt>2026.08</dt><dd>Preprint of my WAOA 2026 paper is up on <a href="https://arxiv.org/abs/2608.11038" rel="noopener">arXiv</a>; the paper will appear at the 24th Workshop on Approximation and Online Algorithms in L&rsquo;Aquila, Italy.</dd>
       <dt>2025.11</dt><dd>Joined <a href="https://www.prestolabs.io" rel="noopener">Presto Labs</a> as a data engineer on the vendor data / data platform team.</dd>
       <dt>2024.02</dt><dd>Graduated from Yonsei University with a B.S. in Computer Science.</dd>
@@ -400,8 +412,54 @@ footer .upd { margin-left: auto; }
 </section>
 
 <section id="publication">
-  <h2 class="mlabel">Publication</h2>
+  <h2 class="mlabel">Publications</h2>
   <div class="sbody">
+    <div class="pub">
+      <span class="num">[2]</span>
+      <div>
+        <h3>An EPTAS for Offline Temporary Tasks Assignment on Few Machines</h3>
+        <p class="authors">Junho Hwang <span style="color:var(--graphite)">(sole author)</span></p>
+        <p class="venue">Preprint, 2026.</p>
+        <p class="plinks">
+          <a class="tag" href="https://arxiv.org/abs/2609.33493" rel="noopener">arXiv:2609.33493</a>
+          <a class="tag" href="https://arxiv.org/pdf/2609.33493" rel="noopener">PDF</a>
+        </p>
+        <details class="figblock">
+          <summary><span class="chev">▸</span>about this paper</summary>
+          <div class="figbody">
+            <figure class="fig">
+              <svg viewBox="0 0 320 176" role="img" aria-label="Jobs drawn as blocks on two machine timelines; the tallest stack marks the peak load.">
+                <!-- machine timelines -->
+                <line class="base" x1="36" y1="58"  x2="300" y2="58"/>
+                <line class="base" x1="36" y1="150" x2="300" y2="150"/>
+                <path class="arrow" d="M300,54.5 L307,58 L300,61.5 Z"/>
+                <path class="arrow" d="M300,146.5 L307,150 L300,153.5 Z"/>
+                <!-- jobs: width = time interval, height = weight (--d = drop-in delay) -->
+                <rect class="job" style="--d:.05s" x="36"  y="34"  width="100" height="24" rx="2"/>
+                <rect class="job" style="--d:.25s" x="56"  y="16"  width="50"  height="18" rx="2"/>
+                <rect class="job" style="--d:.45s" x="156" y="40"  width="120" height="18" rx="2"/>
+                <rect class="job" style="--d:.65s" x="196" y="28"  width="60"  height="12" rx="2"/>
+                <rect class="job" style="--d:.1s"  x="36"  y="138" width="30"  height="12" rx="2"/>
+                <rect class="job" style="--d:.2s"  x="76"  y="132" width="140" height="18" rx="2"/>
+                <rect class="job" style="--d:.4s"  x="96"  y="114" width="60"  height="18" rx="2"/>
+                <rect class="job" style="--d:.6s"  x="116" y="96"  width="30"  height="18" rx="2"/>
+                <rect class="job" style="--d:.5s"  x="236" y="126" width="60"  height="24" rx="2"/>
+                <!-- peak load -->
+                <g class="peak-mark">
+                  <line class="peak" x1="36" y1="96" x2="296" y2="96"/>
+                  <text class="peak-label" x="296" y="90" text-anchor="end">peak load</text>
+                </g>
+                <text x="6" y="63">M₁</text>
+                <text x="6" y="155">M₂</text>
+                <text class="note" x="307" y="170" text-anchor="end">time</text>
+              </svg>
+              <figcaption>Fig.&nbsp;1. Jobs assigned to <em>r</em>&nbsp;=&nbsp;2 machines. Each block spans a job&rsquo;s time interval and is as tall as its weight.</figcaption>
+            </figure>
+            <p>In temporary tasks assignment, each job occupies one of <em>r</em> identical machines for a fixed time interval, adding its weight to that machine&rsquo;s load while it is active. The goal is to keep the peak load — the tallest stack on any machine — as small as possible. For every fixed <em>r</em>, this paper gives an <span class="hl">EPTAS</span>: a (1+<em>ε</em>)-approximation running in time <span style="white-space:nowrap"><em>f</em>(<em>r</em>,&nbsp;1/<em>ε</em>)&middot;<em>N</em><sup><em>O</em>(1)</sup></span>, so <em>ε</em> no longer appears in the exponent as it did in the previous scheme. It also shows that the problem is strongly NP-hard for every fixed <em>r</em>&nbsp;≥&nbsp;2, ruling out an FPTAS unless P&nbsp;=&nbsp;NP.</p>
+          </div>
+        </details>
+      </div>
+    </div>
     <div class="pub">
       <span class="num">[1]</span>
       <div>
@@ -581,7 +639,7 @@ footer .upd { margin-left: auto; }
   <a href="https://github.com/junodeveloper" rel="noopener">github</a>
   <a href="https://scholar.google.com/citations?user=4UY0TrYAAAAJ" rel="noopener">scholar</a>
   <a href="https://infossm.github.io/authors/junodeveloper" rel="noopener">blog</a>
-  <span class="upd">last updated 2026.08</span>
+  <span class="upd">last updated 2026.09</span>
 </footer>
 
 </main>
