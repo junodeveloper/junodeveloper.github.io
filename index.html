@@ -403,7 +403,7 @@ footer .upd { margin-left: auto; }
   <h2 class="mlabel">News</h2>
   <div class="sbody">
     <dl class="news">
-      <dt>2026.09</dt><dd>New preprint on <a href="https://arxiv.org/abs/2609.33493" rel="noopener">arXiv</a>: <em>An EPTAS for Offline Temporary Tasks Assignment on Few Machines</em>.</dd>
+      <dt>2026.09</dt><dd>New preprint on <a href="https://arxiv.org/abs/2609.33493" rel="noopener">arXiv</a>: <em>An EPTAS for Vector Scheduling with Time Intervals</em>.</dd>
       <dt>2026.08</dt><dd>Preprint of my WAOA 2026 paper is up on <a href="https://arxiv.org/abs/2608.11038" rel="noopener">arXiv</a>; the paper will appear at the 24th Workshop on Approximation and Online Algorithms in L&rsquo;Aquila, Italy.</dd>
       <dt>2025.11</dt><dd>Joined <a href="https://www.prestolabs.io" rel="noopener">Presto Labs</a> as a data engineer on the vendor data / data platform team.</dd>
       <dt>2024.02</dt><dd>Graduated from Yonsei University with a B.S. in Computer Science.</dd>
@@ -417,7 +417,7 @@ footer .upd { margin-left: auto; }
     <div class="pub">
       <span class="num">[2]</span>
       <div>
-        <h3>An EPTAS for Offline Temporary Tasks Assignment on Few Machines</h3>
+        <h3>An EPTAS for Vector Scheduling with Time Intervals</h3>
         <p class="authors">Junho Hwang <span style="color:var(--graphite)">(sole author)</span></p>
         <p class="venue">Preprint, 2026.</p>
         <p class="plinks">
@@ -428,7 +428,7 @@ footer .upd { margin-left: auto; }
           <summary><span class="chev">▸</span>about this paper</summary>
           <div class="figbody">
             <figure class="fig">
-              <svg viewBox="0 0 320 176" role="img" aria-label="Jobs drawn as blocks on two machine timelines; the tallest stack marks the peak load.">
+              <svg viewBox="0 0 320 176" role="img" aria-label="One-resource case: jobs drawn as blocks on two machine timelines; the tallest stack marks the peak load.">
                 <!-- machine timelines -->
                 <line class="base" x1="36" y1="58"  x2="300" y2="58"/>
                 <line class="base" x1="36" y1="150" x2="300" y2="150"/>
@@ -453,9 +453,9 @@ footer .upd { margin-left: auto; }
                 <text x="6" y="155">M₂</text>
                 <text class="note" x="307" y="170" text-anchor="end">time</text>
               </svg>
-              <figcaption>Fig.&nbsp;1. Jobs assigned to <em>r</em>&nbsp;=&nbsp;2 machines. Each block spans a job&rsquo;s time interval and is as tall as its weight.</figcaption>
+              <figcaption>Fig.&nbsp;1. The one-resource case on <em>r</em>&nbsp;=&nbsp;2 identical machines. Each block spans a job&rsquo;s time interval and is as tall as its requirement.</figcaption>
             </figure>
-            <p>In temporary tasks assignment, each job occupies one of <em>r</em> identical machines for a fixed time interval, adding its weight to that machine&rsquo;s load while it is active. The goal is to keep the peak load — the tallest stack on any machine — as small as possible. For every fixed <em>r</em>, this paper gives an <span class="hl">EPTAS</span>: a (1+<em>ε</em>)-approximation running in time <span style="white-space:nowrap"><em>f</em>(<em>r</em>,&nbsp;1/<em>ε</em>)&middot;<em>N</em><sup><em>O</em>(1)</sup></span>, so <em>ε</em> no longer appears in the exponent as it did in the previous scheme. It also shows that the problem is strongly NP-hard for every fixed <em>r</em>&nbsp;≥&nbsp;2, ruling out an FPTAS unless P&nbsp;=&nbsp;NP.</p>
+            <p>In vector scheduling with time intervals, each job is active during a fixed time interval and stays on one of <em>r</em> machines for that whole interval, using <em>d</em> resources whose requirements may depend on the machine. The goal is to keep the peak load — the largest load of any resource on any machine at any time — as small as possible. For fixed <em>r</em> and <em>d</em>, this paper gives an <span class="hl">EPTAS</span>: a deterministic (1+<em>ε</em>)-approximation running in time <span style="white-space:nowrap"><em>f</em>(<em>r</em>,&nbsp;<em>d</em>,&nbsp;1/<em>ε</em>)&middot;<em>N</em><sup><em>O</em>(1)</sup></span>, extending approximation schemes for scalar temporary tasks assignment. It also proves strong NP-hardness and an exponential lower bound in 1/<em>ε</em> under the Exponential Time Hypothesis, already for two identical machines and one resource, the case shown above.</p>
           </div>
         </details>
       </div>
@@ -639,7 +639,7 @@ footer .upd { margin-left: auto; }
   <a href="https://github.com/junodeveloper" rel="noopener">github</a>
   <a href="https://scholar.google.com/citations?user=4UY0TrYAAAAJ" rel="noopener">scholar</a>
   <a href="https://infossm.github.io/authors/junodeveloper" rel="noopener">blog</a>
-  <span class="upd">last updated 2026.09</span>
+  <span class="upd">last updated 2026.10</span>
 </footer>
 
 </main>
