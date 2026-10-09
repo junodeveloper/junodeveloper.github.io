@@ -208,13 +208,19 @@ nav.top a:not(.brand):hover { color: var(--carmine); }
 }
 .fig .base { stroke: var(--ink); stroke-width: 1.4; opacity: .5; }
 .fig .arrow { fill: var(--ink); opacity: .5; }
-.fig .job { fill: #fff; stroke: var(--ink); stroke-width: 1.4; }
+.fig .job, .fig .run { fill: #fff; stroke: var(--ink); stroke-width: 1.4; }
+.fig .zero { stroke: var(--carmine); stroke-width: 2; stroke-linecap: round; fill: none; }
 .fig .peak { stroke: var(--carmine); stroke-width: 1.6; stroke-dasharray: 5 4; }
 .fig text.note { font-size: 13px; fill: var(--graphite); }
 .fig text.peak-label { font-size: 13px; fill: var(--carmine); }
 @media (prefers-reduced-motion: no-preference) {
   .figblock[open] .fig .job { animation: drop .4s ease-out var(--d) both; }
   .figblock[open] .fig .peak-mark { animation: fade .35s ease .95s both; }
+  .figblock[open] .fig .run {
+    transform-box: fill-box; transform-origin: left center;
+    animation: grow var(--t) linear var(--d) both;
+  }
+  .figblock[open] .fig .zero { animation: fade .2s ease var(--d) both; }
   .figblock[open] .fig .path {
     stroke-dasharray: 661;
     stroke-dashoffset: 661;
@@ -233,6 +239,7 @@ nav.top a:not(.brand):hover { color: var(--carmine); }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes drop { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
 @keyframes fade { from { opacity: 0; } }
+@keyframes grow { from { transform: scaleX(0); } }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 .hl {
@@ -403,6 +410,7 @@ footer .upd { margin-left: auto; }
   <h2 class="mlabel">News</h2>
   <div class="sbody">
     <dl class="news">
+      <dt>2026.10</dt><dd>New preprint on <a href="https://arxiv.org/abs/2610.11481" rel="noopener">arXiv</a>: <em>A QPTAS for Stochastic Scheduling of Bernoulli Jobs</em>.</dd>
       <dt>2026.09</dt><dd>New preprint on <a href="https://arxiv.org/abs/2609.33493" rel="noopener">arXiv</a>: <em>An EPTAS for Vector Scheduling with Time Intervals</em>.</dd>
       <dt>2026.08</dt><dd>Preprint of my WAOA 2026 paper is up on <a href="https://arxiv.org/abs/2608.11038" rel="noopener">arXiv</a>; the paper will appear at the 24th Workshop on Approximation and Online Algorithms in L&rsquo;Aquila, Italy.</dd>
       <dt>2025.11</dt><dd>Joined <a href="https://www.prestolabs.io" rel="noopener">Presto Labs</a> as a data engineer on the vendor data / data platform team.</dd>
@@ -414,6 +422,48 @@ footer .upd { margin-left: auto; }
 <section id="publication">
   <h2 class="mlabel">Publications</h2>
   <div class="sbody">
+    <div class="pub">
+      <span class="num">[3]</span>
+      <div>
+        <h3>A QPTAS for Stochastic Scheduling of Bernoulli Jobs</h3>
+        <p class="authors">Junho Hwang <span style="color:var(--graphite)">(sole author)</span></p>
+        <p class="venue">Preprint, 2026.</p>
+        <p class="plinks">
+          <a class="tag" href="https://arxiv.org/abs/2610.11481" rel="noopener">arXiv:2610.11481</a>
+          <a class="tag" href="https://arxiv.org/pdf/2610.11481" rel="noopener">PDF</a>
+        </p>
+        <details class="figblock">
+          <summary><span class="chev">▸</span>about this paper</summary>
+          <div class="figbody">
+            <figure class="fig">
+              <svg viewBox="0 18 320 140" role="img" aria-label="Two machine timelines: jobs either run for their full size, drawn as blocks, or take time zero, marked with crosses.">
+                <!-- machine timelines -->
+                <line class="base" x1="36" y1="62"  x2="300" y2="62"/>
+                <line class="base" x1="36" y1="132" x2="300" y2="132"/>
+                <path class="arrow" d="M300,58.5 L307,62 L300,65.5 Z"/>
+                <path class="arrow" d="M300,128.5 L307,132 L300,135.5 Z"/>
+                <!-- jobs that ran for their full size (--d = start, --t = length; 0.18s per time unit) -->
+                <rect class="run" style="--d:.1s;--t:.54s"   x="36"  y="44"  width="60"  height="18" rx="2"/>
+                <rect class="run" style="--d:.64s;--t:.72s"  x="96"  y="44"  width="80"  height="18" rx="2"/>
+                <rect class="run" style="--d:1.36s;--t:.54s" x="176" y="44"  width="60"  height="18" rx="2"/>
+                <rect class="run" style="--d:.1s;--t:.72s"   x="36"  y="114" width="80"  height="18" rx="2"/>
+                <rect class="run" style="--d:.82s;--t:.45s"  x="116" y="114" width="50"  height="18" rx="2"/>
+                <rect class="run" style="--d:1.27s;--t:.9s"  x="166" y="114" width="100" height="18" rx="2"/>
+                <!-- jobs that took time 0 -->
+                <path class="zero" style="--d:.64s"  d="M92,31 L100,39 M100,31 L92,39"/>
+                <path class="zero" style="--d:1.36s" d="M172,31 L180,39 M180,31 L172,39"/>
+                <path class="zero" style="--d:.82s"  d="M112,101 L120,109 M120,101 L112,109"/>
+                <text x="6" y="67">M₁</text>
+                <text x="6" y="137">M₂</text>
+                <text class="note" x="307" y="152" text-anchor="end">time</text>
+              </svg>
+              <figcaption>Fig.&nbsp;1. One run of a policy on <em>m</em>&nbsp;=&nbsp;2 machines. A job either runs for its full size (block) or takes time&nbsp;0 (×); each outcome is revealed when the job starts.</figcaption>
+            </figure>
+            <p>In stochastic scheduling, jobs with random processing times are scheduled on <em>m</em> identical machines to minimize the expected sum of completion times. This paper studies Bernoulli jobs: job <em>j</em> takes time <em>p<sub>j</sub></em> with probability <em>q<sub>j</sub></em> and time&nbsp;0 otherwise, and its outcome is revealed when it starts. Against an optimal adaptive policy, it gives a <span class="hl">QPTAS</span> for every number of machines, where quasi-polynomial time was previously known to give only an <em>O</em>(log&nbsp;<em>N</em>)-approximation. It also shows that every policy fixing the job order in advance loses a factor <span style="white-space:nowrap">Ω(log&nbsp;<em>N</em>)</span>, already on two machines, so a constant factor requires adapting the order to the observed outcomes.</p>
+          </div>
+        </details>
+      </div>
+    </div>
     <div class="pub">
       <span class="num">[2]</span>
       <div>
