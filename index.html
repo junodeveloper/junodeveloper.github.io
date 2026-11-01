@@ -213,7 +213,18 @@ nav.top a:not(.brand):hover { color: var(--carmine); }
 .fig .peak { stroke: var(--carmine); stroke-width: 1.6; stroke-dasharray: 5 4; }
 .fig text.note { font-size: 13px; fill: var(--graphite); }
 .fig text.peak-label { font-size: 13px; fill: var(--carmine); }
+.fig .uedge { stroke: var(--ink); stroke-width: 1; opacity: .3; }
+.fig .req { fill: var(--marker); }
+.fig .srv { fill: var(--ink); }
+.fig .move { stroke: var(--carmine); stroke-width: 3.2; stroke-linecap: round; }
 @media (prefers-reduced-motion: no-preference) {
+  .figblock[open] .fig .req { animation: ask .3s ease .2s both; }
+  .figblock[open] .fig .move {
+    stroke-dasharray: 68.5;
+    stroke-dashoffset: 68.5;
+    animation: draw .6s ease-in-out .8s forwards;
+  }
+  .figblock[open] .fig .hop { animation: hop .6s ease-in-out .8s both; }
   .figblock[open] .fig .job { animation: drop .4s ease-out var(--d) both; }
   .figblock[open] .fig .peak-mark { animation: fade .35s ease .95s both; }
   .figblock[open] .fig .run {
@@ -240,6 +251,8 @@ nav.top a:not(.brand):hover { color: var(--carmine); }
 @keyframes drop { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
 @keyframes fade { from { opacity: 0; } }
 @keyframes grow { from { transform: scaleX(0); } }
+@keyframes ask { from { fill: #fff; } }
+@keyframes hop { from { transform: translate(var(--dx), var(--dy)); } }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 .hl {
@@ -410,6 +423,7 @@ footer .upd { margin-left: auto; }
   <h2 class="mlabel">News</h2>
   <div class="sbody">
     <dl class="news">
+      <dt>2026.10</dt><dd>New preprint on <a href="https://arxiv.org/abs/2610.37192" rel="noopener">arXiv</a>: <em>Tight Bounds for Randomized Generalized k-Server on Uniform Metrics</em>.</dd>
       <dt>2026.10</dt><dd>New preprint on <a href="https://arxiv.org/abs/2610.11481" rel="noopener">arXiv</a>: <em>A QPTAS for Stochastic Scheduling of Bernoulli Jobs</em>.</dd>
       <dt>2026.09</dt><dd>New preprint on <a href="https://arxiv.org/abs/2609.33493" rel="noopener">arXiv</a>: <em>An EPTAS for Vector Scheduling with Time Intervals</em>.</dd>
       <dt>2026.08</dt><dd>Preprint of my WAOA 2026 paper is up on <a href="https://arxiv.org/abs/2608.11038" rel="noopener">arXiv</a>; the paper will appear at the 24th Workshop on Approximation and Online Algorithms in L&rsquo;Aquila, Italy.</dd>
@@ -422,6 +436,87 @@ footer .upd { margin-left: auto; }
 <section id="publication">
   <h2 class="mlabel">Publications</h2>
   <div class="sbody">
+    <div class="pub">
+      <span class="num">[4]</span>
+      <div>
+        <h3>Tight Bounds for Randomized Generalized <em>k</em>-Server on Uniform Metrics</h3>
+        <p class="authors">Junho Hwang <span style="color:var(--graphite)">(sole author)</span></p>
+        <p class="venue">Preprint, 2026.</p>
+        <p class="plinks">
+          <a class="tag" href="https://arxiv.org/abs/2610.37192" rel="noopener">arXiv:2610.37192</a>
+          <a class="tag" href="https://arxiv.org/pdf/2610.37192" rel="noopener">PDF</a>
+        </p>
+        <details class="figblock">
+          <summary><span class="chev">▸</span>about this paper</summary>
+          <div class="figbody">
+            <figure class="fig">
+              <svg viewBox="0 22 320 110" role="img" aria-label="Three servers, each in its own uniform metric drawn as a complete graph on five points; a request highlights one point per space and server 2 moves to its requested point.">
+                <!-- space 1: uniform metric on 5 points -->
+                <line class="uedge" x1="56" y1="34" x2="90.24" y2="58.88"/>
+                <line class="uedge" x1="56" y1="34" x2="77.16" y2="99.12"/>
+                <line class="uedge" x1="56" y1="34" x2="34.84" y2="99.12"/>
+                <line class="uedge" x1="56" y1="34" x2="21.76" y2="58.88"/>
+                <line class="uedge" x1="90.24" y1="58.88" x2="77.16" y2="99.12"/>
+                <line class="uedge" x1="90.24" y1="58.88" x2="34.84" y2="99.12"/>
+                <line class="uedge" x1="90.24" y1="58.88" x2="21.76" y2="58.88"/>
+                <line class="uedge" x1="77.16" y1="99.12" x2="34.84" y2="99.12"/>
+                <line class="uedge" x1="77.16" y1="99.12" x2="21.76" y2="58.88"/>
+                <line class="uedge" x1="34.84" y1="99.12" x2="21.76" y2="58.88"/>
+                <!-- space 2 -->
+                <line class="uedge" x1="160" y1="34" x2="194.24" y2="58.88"/>
+                <line class="uedge" x1="160" y1="34" x2="181.16" y2="99.12"/>
+                <line class="uedge" x1="160" y1="34" x2="138.84" y2="99.12"/>
+                <line class="uedge" x1="160" y1="34" x2="125.76" y2="58.88"/>
+                <line class="uedge" x1="194.24" y1="58.88" x2="181.16" y2="99.12"/>
+                <line class="uedge" x1="194.24" y1="58.88" x2="138.84" y2="99.12"/>
+                <line class="uedge" x1="194.24" y1="58.88" x2="125.76" y2="58.88"/>
+                <line class="uedge" x1="181.16" y1="99.12" x2="138.84" y2="99.12"/>
+                <line class="uedge" x1="181.16" y1="99.12" x2="125.76" y2="58.88"/>
+                <line class="uedge" x1="138.84" y1="99.12" x2="125.76" y2="58.88"/>
+                <!-- space 3 -->
+                <line class="uedge" x1="264" y1="34" x2="298.24" y2="58.88"/>
+                <line class="uedge" x1="264" y1="34" x2="285.16" y2="99.12"/>
+                <line class="uedge" x1="264" y1="34" x2="242.84" y2="99.12"/>
+                <line class="uedge" x1="264" y1="34" x2="229.76" y2="58.88"/>
+                <line class="uedge" x1="298.24" y1="58.88" x2="285.16" y2="99.12"/>
+                <line class="uedge" x1="298.24" y1="58.88" x2="242.84" y2="99.12"/>
+                <line class="uedge" x1="298.24" y1="58.88" x2="229.76" y2="58.88"/>
+                <line class="uedge" x1="285.16" y1="99.12" x2="242.84" y2="99.12"/>
+                <line class="uedge" x1="285.16" y1="99.12" x2="229.76" y2="58.88"/>
+                <line class="uedge" x1="242.84" y1="99.12" x2="229.76" y2="58.88"/>
+                <!-- server 2 serves the request by moving to its requested point -->
+                <line class="move" x1="160" y1="34" x2="181.16" y2="99.12"/>
+                <!-- points (req = requested point of that space) -->
+                <circle class="node" cx="56" cy="34" r="6"/>
+                <circle class="node req" cx="90.24" cy="58.88" r="6"/>
+                <circle class="node" cx="77.16" cy="99.12" r="6"/>
+                <circle class="node" cx="34.84" cy="99.12" r="6"/>
+                <circle class="node" cx="21.76" cy="58.88" r="6"/>
+                <circle class="node" cx="160" cy="34" r="6"/>
+                <circle class="node" cx="194.24" cy="58.88" r="6"/>
+                <circle class="node req" cx="181.16" cy="99.12" r="6"/>
+                <circle class="node" cx="138.84" cy="99.12" r="6"/>
+                <circle class="node" cx="125.76" cy="58.88" r="6"/>
+                <circle class="node req" cx="264" cy="34" r="6"/>
+                <circle class="node" cx="298.24" cy="58.88" r="6"/>
+                <circle class="node" cx="285.16" cy="99.12" r="6"/>
+                <circle class="node" cx="242.84" cy="99.12" r="6"/>
+                <circle class="node" cx="229.76" cy="58.88" r="6"/>
+                <!-- servers -->
+                <circle class="srv" cx="21.76" cy="58.88" r="3.6"/>
+                <circle class="srv hop" style="--dx:-21.16px;--dy:-65.12px" cx="181.16" cy="99.12" r="3.6"/>
+                <circle class="srv" cx="242.84" cy="99.12" r="3.6"/>
+                <text class="note" x="56"  y="126" text-anchor="middle">space 1</text>
+                <text class="note" x="160" y="126" text-anchor="middle">space 2</text>
+                <text class="note" x="264" y="126" text-anchor="middle">space 3</text>
+              </svg>
+              <figcaption>Fig.&nbsp;1. <em>k</em>&nbsp;=&nbsp;3 servers, each in its own uniform metric where every move costs&nbsp;1. A request names one point per space (yellow) and is served once some server reaches its point.</figcaption>
+            </figure>
+            <p>In the generalized <em>k</em>-server problem, each of <em>k</em> servers moves in its own metric space, and a request names one point in every space; it is served once some server <em>i</em> stands at the requested point of its space. This paper determines the randomized competitive ratio against an oblivious adversary when every space is a uniform metric. With unit distances the ratio is <span class="hl">Θ(<em>k</em>&nbsp;log&nbsp;<em>k</em>)</span>, improving the previous bounds <em>O</em>(<em>k</em><sup>2</sup>&nbsp;log&nbsp;<em>k</em>) and Ω(<em>k</em>). When server <em>i</em> pays <em>w<sub>i</sub></em> per move, the ratio is <span style="white-space:nowrap">exp(Θ(<em>k</em>))</span>, improving the previous <span style="white-space:nowrap">exp(<em>O</em>(<em>k</em><sup>2</sup>))</span> bound and matching the Ω(2<sup><em>k</em></sup>) lower bound up to the base of the exponent.</p>
+          </div>
+        </details>
+      </div>
+    </div>
     <div class="pub">
       <span class="num">[3]</span>
       <div>
@@ -689,7 +784,7 @@ footer .upd { margin-left: auto; }
   <a href="https://github.com/junodeveloper" rel="noopener">github</a>
   <a href="https://scholar.google.com/citations?user=4UY0TrYAAAAJ" rel="noopener">scholar</a>
   <a href="https://infossm.github.io/authors/junodeveloper" rel="noopener">blog</a>
-  <span class="upd">last updated 2026.10</span>
+  <span class="upd">last updated 2026.11</span>
 </footer>
 
 </main>
