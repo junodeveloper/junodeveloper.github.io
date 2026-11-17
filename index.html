@@ -288,11 +288,6 @@ section {
 #about p { font-size: 1.02rem; }
 #about p + p { margin-top: .8rem; }
 
-/* news */
-.news { display: grid; grid-template-columns: 5.4rem 1fr; gap: .55rem 1.1rem; font-size: .95rem; }
-.news dt { font-family: var(--mono); font-size: .78rem; color: var(--graphite); padding-top: .18em; }
-.news dd { min-width: 0; }
-
 /* publication */
 .pub { display: grid; grid-template-columns: 1.8rem 1fr; gap: 1rem; }
 .pub + .pub { margin-top: 1.9rem; }
@@ -355,7 +350,6 @@ section {
 .skills dt { font-family: var(--mono); font-size: .76rem; color: var(--graphite); padding-top: .2em; }
 .skills dd { min-width: 0; }
 @media (max-width: 560px) {
-  .news { grid-template-columns: 4.6rem 1fr; }
   .skills { grid-template-columns: 1fr; gap: .1rem; }
   .skills dd { margin-bottom: .6rem; }
   .crow { grid-template-columns: 4.6rem 1fr; }
@@ -386,7 +380,6 @@ footer .upd { margin-left: auto; }
 <nav class="top" aria-label="Sections">
   <a class="brand" href="#top">junho hwang</a>
   <a href="#about">about</a>
-  <a href="#news">news</a>
   <a href="#publication">papers</a>
   <a href="#experience">work</a>
   <a href="#contests">contests</a>
@@ -416,20 +409,6 @@ footer .upd { margin-left: auto; }
   <div class="sbody">
     <p>I am currently working as a data engineer at Presto Labs and have a strong interest in quantitative trading.</p>
     <p>On the research side, I am interested in approximation algorithms, combinatorial optimization and computational geometry.</p>
-  </div>
-</section>
-
-<section id="news">
-  <h2 class="mlabel">News</h2>
-  <div class="sbody">
-    <dl class="news">
-      <dt>2026.10</dt><dd>New preprint on <a href="https://arxiv.org/abs/2610.37192" rel="noopener">arXiv</a>: <em>Tight Bounds for Randomized Generalized k-Server on Uniform Metrics</em>.</dd>
-      <dt>2026.10</dt><dd>New preprint on <a href="https://arxiv.org/abs/2610.11481" rel="noopener">arXiv</a>: <em>A QPTAS for Stochastic Scheduling of Bernoulli Jobs</em>.</dd>
-      <dt>2026.09</dt><dd>New preprint on <a href="https://arxiv.org/abs/2609.33493" rel="noopener">arXiv</a>: <em>An EPTAS for Vector Scheduling with Time Intervals</em>.</dd>
-      <dt>2026.08</dt><dd>Preprint of my WAOA 2026 paper is up on <a href="https://arxiv.org/abs/2608.11038" rel="noopener">arXiv</a>; the paper will appear at the 24th Workshop on Approximation and Online Algorithms in L&rsquo;Aquila, Italy.</dd>
-      <dt>2025.11</dt><dd>Joined <a href="https://www.prestolabs.io" rel="noopener">Presto Labs</a> as a data engineer on the vendor data / data platform team.</dd>
-      <dt>2024.02</dt><dd>Graduated from Yonsei University with a B.S. in Computer Science.</dd>
-    </dl>
   </div>
 </section>
 
